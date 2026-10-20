@@ -1,0 +1,48 @@
+String changelogFor(String text, String ver) {
+    List<String> section = []
+    boolean inside = false
+    for (String line : text.readLines()) {
+        if (line.startsWith('## ')) {
+            if (inside) {
+                break
+            }
+            inside = line.substring(3).trim() == ver
+        } else if (inside) {
+            section.add(line)
+        }
+    }
+    String entry = section.join('\n').trim()
+    if (entry.isEmpty()) {
+        throw new GradleException("CHANGELOG.md has no entry for ${ver}")
+    }
+    return entry
+}
+
+def modrinthToken = providers.environmentVariable('MODRINTH_TOKEN').orElse(providers.gradleProperty('modrinthToken')).filter { !it.isBlank() }
+def loaderId = publish_loader.toString()
+def loaderName = [fabric: 'Fabric', forge: 'Forge', neoforge: 'NeoForge'][loaderId]
+def mcStart = publish_mc_start.toString()
+def mcEnd = publish_mc_end.toString()
+def mcLabel = mcStart == mcEnd ? mcStart : "${mcStart}-${mcEnd}"
+
+publishMods {
+    file = (tasks.findByName('remapJar') ?: tasks.jar).archiveFile
+    version = "${mod_version}+${loaderId}-${mcStart}"
+    displayName = "FastChest Revived ${mod_version} (${loaderName} ${mcLabel})"
+    changelog = providers.fileContents(layout.projectDirectory.file('../CHANGELOG.md')).asText.map { changelogFor(it, mod_version.toString()) }
+    type = STABLE
+    modLoaders.add(loaderId)
+    dryRun = !modrinthToken.present
+
+    modrinth {
+        projectId = 'DcSJwUyy'
+        accessToken = modrinthToken
+        minecraftVersionRange {
+            start = mcStart
+            end = mcEnd
+        }
+        if (loaderId == 'fabric') {
+            requires('fabric-api')
+        }
+    }
+}
