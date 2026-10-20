@@ -27,6 +27,7 @@ minecraft {
     runs {
         configureEach {
             workingDir = layout.projectDirectory.dir('run')
+            args '--mixin.config', 'fastchestrevived.mixins.json'
         }
 
         register('client')
@@ -58,4 +59,7 @@ tasks.withType(JavaCompile).configureEach {
 
 jar {
     from '../LICENSE.txt'
+    manifest {
+        attributes 'MixinConfigs': 'fastchestrevived.mixins.json'
+    }
 }
