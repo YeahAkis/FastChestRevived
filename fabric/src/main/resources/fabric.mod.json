@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "fastchestrevived",
+  "version": "${version}",
+  "name": "FastChest Revived",
+  "description": "Renders chests as normal blocks instead of block entities, so big storage rooms stop eating your FPS.",
+  "authors": [
+    "Akis",
+    "Domi"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/fastchest-revived",
+    "sources": "https://github.com/YeahAkis/FastChestRevived",
+    "issues": "https://github.com/YeahAkis/FastChestRevived/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/fastchestrevived/icon.png",
+  "environment": "client",
+  "mixins": [
+    "fastchestrevived.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_range}"
+  }
+}

@@ -1,0 +1,37 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = mod_version
+group = 'org.notionsmp'
+
+base {
+	archivesName = 'fastchestrevived-fabric'
+}
+
+sourceSets.main {
+	java.srcDir '../common/src/main/java'
+	resources.srcDir '../common/src/main/resources'
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+}
+
+processResources {
+	def props = [version: version, minecraft_range: minecraft_range]
+	inputs.properties props
+	filesMatching('fabric.mod.json') {
+		expand props
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+jar {
+	from '../LICENSE.txt'
+}
