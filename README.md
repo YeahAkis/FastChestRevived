@@ -24,6 +24,23 @@ Every Minecraft line has its own branch, `master` is always the newest one.
 | Branch | Minecraft | Loaders |
 | --- | --- | --- |
 | `master` / `26-3` | 26.3 | Fabric, Forge, NeoForge |
+| `26-2` | 26.2 | Fabric, Forge, NeoForge |
+| `26-1` | 26.1 to 26.1.2 | Fabric, Forge, NeoForge |
+| `1-21-9` | 1.21.9 to 1.21.11 | Fabric, Forge, NeoForge |
+| `1-21` | 1.21 to 1.21.8 | Fabric, Forge, NeoForge |
+| `1-20-5` | 1.20.5 and 1.20.6 | Fabric, Forge, NeoForge |
+| `1-20` | 1.20 to 1.20.4 | Fabric, Forge (1.20.1), NeoForge (1.20.2 to 1.20.4) |
+| `1-19-3` | 1.19.3 and 1.19.4 | Fabric, Forge (1.19.4) |
+| `1-19` | 1.19 to 1.19.2 | Fabric, Forge (1.19.2) |
+| `1-18` | 1.18 to 1.18.2 | Fabric, Forge (1.18.2) |
+| `1-17` | 1.17 and 1.17.1 | Fabric, Forge (1.17.1) |
+| `1-16` | 1.16 to 1.16.5 | Fabric, Forge (1.16.5) |
+
+On Fabric you also need Fabric API.
+
+## Sodium and Embeddium
+
+Works fine with both, since chests are just normal blocks now. In a quick test on 26.3 a big chest room went from around 140-200 FPS with plain Fabric to 700-1000 with Sodium and FastChest Revived.
 
 ## Resource packs
 
