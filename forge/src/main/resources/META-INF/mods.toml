@@ -11,7 +11,6 @@ authors = "Akis, Domi"
 displayURL = "https://modrinth.com/mod/fastchest-revived"
 logoFile = "assets/fastchestrevived/icon.png"
 description = "Renders chests as normal blocks instead of block entities, so big storage rooms stop eating your FPS."
-displayTest = "IGNORE_ALL_VERSION"
 
 [[dependencies.fastchestrevived]]
 modId = "minecraft"
