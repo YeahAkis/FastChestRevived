@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "FastChest Revived"
 authors = "Akis, Domi"
 displayURL = "https://modrinth.com/mod/fastchest-revived"
-iconFile = "assets/fastchestrevived/icon.png"
+logoFile = "assets/fastchestrevived/icon.png"
 description = "Renders chests as normal blocks instead of block entities, so big storage rooms stop eating your FPS."
 displayTest = "IGNORE_ALL_VERSION"
 

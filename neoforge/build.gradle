@@ -10,7 +10,7 @@ base {
     archivesName = 'fastchestrevived-neoforge'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 sourceSets.main {
     java.srcDir '../common/src/main/java'
