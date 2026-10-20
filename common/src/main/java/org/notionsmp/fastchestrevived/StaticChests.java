@@ -3,7 +3,6 @@ package org.notionsmp.fastchestrevived;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CopperChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public final class StaticChests {
@@ -19,7 +18,6 @@ public final class StaticChests {
         Block block = state.getBlock();
         return block == Blocks.CHEST
                 || block == Blocks.TRAPPED_CHEST
-                || block == Blocks.ENDER_CHEST
-                || block instanceof CopperChestBlock;
+                || block == Blocks.ENDER_CHEST;
     }
 }
