@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "fastchestrevived:block/ender_chest"
+    },
+    "facing=east": {
+      "model": "fastchestrevived:block/ender_chest",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "fastchestrevived:block/ender_chest",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fastchestrevived:block/ender_chest",
+      "y": 270
+    }
+  }
+}
