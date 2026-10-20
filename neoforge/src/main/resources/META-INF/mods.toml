@@ -15,7 +15,7 @@ displayTest = "IGNORE_ALL_VERSION"
 
 [[dependencies.fastchestrevived]]
 modId = "minecraft"
-mandatory = true
+type = "required"
 versionRange = "${minecraft_range}"
 ordering = "NONE"
 side = "CLIENT"
