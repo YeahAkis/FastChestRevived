@@ -19,11 +19,14 @@ String changelogFor(String text, String ver) {
 }
 
 def modrinthToken = providers.environmentVariable('MODRINTH_TOKEN').orElse(providers.gradleProperty('modrinthToken')).filter { !it.isBlank() }
+def curseforgeToken = providers.environmentVariable('CURSEFORGE_TOKEN').orElse(providers.gradleProperty('curseforgeToken')).filter { !it.isBlank() }
 def loaderId = publish_loader.toString()
 def loaderName = [fabric: 'Fabric', forge: 'Forge', neoforge: 'NeoForge'][loaderId]
 def mcStart = publish_mc_start.toString()
 def mcEnd = publish_mc_end.toString()
 def mcLabel = mcStart == mcEnd ? mcStart : "${mcStart}-${mcEnd}"
+
+base.archivesName = "fastchestrevived-${loaderId}-${mcStart}"
 
 publishMods {
     file = (tasks.findByName('remapJar') ?: tasks.jar).archiveFile
@@ -32,7 +35,7 @@ publishMods {
     changelog = providers.fileContents(layout.projectDirectory.file('../CHANGELOG.md')).asText.map { changelogFor(it, mod_version.toString()) }
     type = STABLE
     modLoaders.add(loaderId)
-    dryRun = !modrinthToken.present
+    dryRun = !modrinthToken.present && !curseforgeToken.present
 
     modrinth {
         projectId = 'DcSJwUyy'
@@ -41,6 +44,20 @@ publishMods {
             start = mcStart
             end = mcEnd
         }
+        if (loaderId == 'fabric') {
+            requires('fabric-api')
+        }
+    }
+
+    curseforge {
+        projectId = '1756289'
+        accessToken = curseforgeToken
+        minecraftVersionRange {
+            start = mcStart
+            end = mcEnd
+        }
+        clientRequired = true
+        serverRequired = false
         if (loaderId == 'fabric') {
             requires('fabric-api')
         }
