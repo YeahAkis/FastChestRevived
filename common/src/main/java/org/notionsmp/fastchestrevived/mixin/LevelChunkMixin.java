@@ -31,7 +31,14 @@ public abstract class LevelChunkMixin {
         }
     }
 
-    @Inject(method = {"setBlockEntity", "addAndRegisterBlockEntity"}, at = @At("HEAD"), cancellable = true)
+    @Inject(method = "setBlockEntity", at = @At("HEAD"), cancellable = true)
+    private void fastchestrevived$skipSet(BlockPos pos, BlockEntity blockEntity, CallbackInfo ci) {
+        if (StaticChests.applies(level, getBlockState(pos))) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "addBlockEntity", at = @At("HEAD"), cancellable = true)
     private void fastchestrevived$skipAdd(BlockEntity blockEntity, CallbackInfo ci) {
         if (StaticChests.applies(level, getBlockState(blockEntity.getBlockPos()))) {
             ci.cancel();
