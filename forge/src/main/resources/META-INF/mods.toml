@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "${loader_range}"
+license = "MIT"
+issueTrackerURL = "https://github.com/YeahAkis/FastChestRevived/issues"
+
+[[mods]]
+modId = "fastchestrevived"
+version = "${version}"
+displayName = "FastChest Revived"
+authors = "Akis, Domi"
+displayURL = "https://modrinth.com/mod/fastchest-revived"
+logoFile = "assets/fastchestrevived/icon.png"
+description = "Renders chests as normal blocks instead of block entities, so big storage rooms stop eating your FPS."
+displayTest = "IGNORE_ALL_VERSION"
+
+[[dependencies.fastchestrevived]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_range}"
+ordering = "NONE"
+side = "CLIENT"
+
+[[mixins]]
+config = "fastchestrevived.mixins.json"
