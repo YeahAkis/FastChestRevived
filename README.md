@@ -1,13 +1,47 @@
-# FastChest
+# FastChest Revived
 
-If your storage room contains a lot of chests, you have probably noticed how bad Minecraft is at rendering them. The more chests are placed, the lower your FPS go.
+Chests in Minecraft are block entities. Every chest you can see gets drawn by its own renderer every single frame, lid animation and all, so a storage room with a few hundred of them can tank your FPS.
 
-FastChest helps by removing their dynamic models (aka BlockEntityRenderer) and making them render as static chunk geometry, like most normal blocks. (This means they will lose their lid opening animation! Check out [Enhanced Block Entities](https://modrinth.com/mod/ebe) if you care about that.)
+FastChest Revived makes chests normal blocks on your side. They get baked into the chunk like stone or planks, so a wall of chests costs about the same as a wall of planks.
 
-Depending on how many chests you have around, you'll see varying effectiveness. In large storage rooms this mod can easily double your FPS, but keep in mind that chests aren't the only thing responsible for bad performance.
+## What it does
 
-FastChest works with Sodium and Optifine and should be compatible with all other mods and resource packs that leave chests alone. For example, the *Vanilla Tweaks Proper Break Particles* resource pack doesn't. It overwrites the chest blockstate definitions and is not compatible out of the box. You can however delete `chest.json`, `ender_chest.json` and `trapped_chest.json` from the `/assets/minecraft/blockstates` directory of your resource pack to make it work with the mod.
+- Chests, trapped chests, ender chests and copper chests render as plain block models
+- Your client never creates block entities for them, so there's no renderer and no ticker running for each chest
+- Breaking cracks show up on chests again
+- Opening chests, sounds and everything else work like normal
 
-A classic (full-block) chest resource pack can be downloaded from [here](https://up.domi.re/pa1f7rxa).
+The one thing you lose is the lid opening animation. If you want static chests that still animate, check out [Enhanced Block Entities](https://modrinth.com/mod/ebe).
 
-There's a Forge port by yGlobalista available on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fastchest-reforged) / [GitHub](https://github.com/globalista-dev/FastChest-Reforged).
+## Client side only
+
+You only need it on your client. It works on any server, vanilla or modded, and the server doesn't need to have it. Nothing about the world or other players changes, chests just look like chests that don't open.
+
+## Versions
+
+Every Minecraft line has its own branch, `master` is always the newest one.
+
+| Branch | Minecraft | Loaders |
+| --- | --- | --- |
+| `master` / `26-3` | 26.3 | Fabric, Forge, NeoForge |
+
+## Resource packs
+
+The models use the normal chest textures from `textures/entity/chest`, so packs that retexture chests work fine.
+
+If a pack ships its own chest blockstates it will override the mod. To fix that, delete `chest.json`, `trapped_chest.json`, `ender_chest.json` and the copper chest ones from `assets/minecraft/blockstates` in the pack.
+
+## Building
+
+Each loader is its own Gradle project:
+
+```
+cd fabric
+./gradlew build
+```
+
+Same for `forge` and `neoforge`. The jar ends up in `build/libs`.
+
+## Credits
+
+This started as a fork of [FastChest](https://github.com/FakeDomi/FastChest) by Domi, MIT licensed.
