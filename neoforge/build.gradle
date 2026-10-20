@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version "${mdg_version}"
+}
+
+version = mod_version
+group = 'org.notionsmp'
+
+base {
+    archivesName = 'fastchestrevived-neoforge'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+sourceSets.main {
+    java.srcDir '../common/src/main/java'
+    resources.srcDir '../common/src/main/resources'
+}
+
+neoForge {
+    version = neo_version
+
+    runs {
+        client {
+            client()
+        }
+    }
+
+    mods {
+        fastchestrevived {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+processResources {
+    def props = [version: version, minecraft_range: minecraft_range]
+    inputs.properties props
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand props
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    from '../LICENSE.txt'
+}
