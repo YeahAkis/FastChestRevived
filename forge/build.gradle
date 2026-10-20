@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
 }
 
 version = mod_version
@@ -64,3 +65,5 @@ jar {
     from '../LICENSE.txt'
     finalizedBy 'reobfJar'
 }
+
+apply from: '../publish.gradle'
