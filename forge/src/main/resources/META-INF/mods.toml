@@ -20,5 +20,3 @@ versionRange = "${minecraft_range}"
 ordering = "NONE"
 side = "CLIENT"
 
-[[mixins]]
-config = "fastchestrevived.mixins.json"

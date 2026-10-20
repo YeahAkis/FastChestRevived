@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id 'net.minecraftforge.gradle' version '[7.0.40,8)'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -10,38 +11,38 @@ base {
     archivesName = 'fastchestrevived-forge'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets.main {
     java.srcDir '../common/src/main/java'
     resources.srcDir '../common/src/main/resources'
 }
 
-sourceSets.each {
-    def dir = layout.buildDirectory.dir("sourcesSets/${it.name}")
-    it.output.resourcesDir = dir
-    it.java.destinationDirectory = dir
-}
-
 minecraft {
-    runs {
-        configureEach {
-            workingDir = layout.projectDirectory.dir('run')
-        }
+    mappings channel: 'official', version: minecraft_version
 
-        register('client')
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                fastchestrevived {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
-repositories {
-    minecraft.mavenizer(it)
-    maven fg.forgeMaven
-    maven fg.minecraftLibsMaven
-    mavenCentral()
+mixin {
+    add sourceSets.main, 'fastchestrevived.refmap.json'
+    config 'fastchestrevived.mixins.json'
 }
 
 dependencies {
-    implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 processResources {
@@ -49,6 +50,9 @@ processResources {
     inputs.properties props
     filesMatching('META-INF/mods.toml') {
         expand props
+    }
+    filesMatching('fastchestrevived.mixins.json') {
+        filter { line -> line.contains('"package"') ? line + '\n  "refmap": "fastchestrevived.refmap.json",' : line }
     }
 }
 
@@ -58,4 +62,5 @@ tasks.withType(JavaCompile).configureEach {
 
 jar {
     from '../LICENSE.txt'
+    finalizedBy 'reobfJar'
 }
