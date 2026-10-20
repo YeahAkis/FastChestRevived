@@ -4,6 +4,7 @@
   "package": "org.notionsmp.fastchestrevived.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "BlockModelSetMixin",
     "LevelChunkMixin"
   ],
   "injectors": {
