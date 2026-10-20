@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.notionsmp.fastchestrevived.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "LevelChunkMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
